@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Client.Views.AuthPage"
+             Title="Авторизация">
+    <ScrollView>
+        <VerticalStackLayout Spacing="10" Padding="5,50,5,5">
+            <Label Text="логин" FontSize="Title" HorizontalOptions="Center"/>
+            <Entry x:Name="LoginEntry" HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                   MinimumWidthRequest="250" MaximumWidthRequest="250"/>
+            <Label Text="пароль" FontSize="Title" HorizontalOptions="Center"/>
+            <Entry x:Name="PasswordEntry" HorizontalOptions="Center" HorizontalTextAlignment="Center"
+                   MinimumWidthRequest="250" MaximumWidthRequest="250"
+                   IsPassword="True"/>
+            <Button Text="Войти" Margin="0,20,0,0"
+                   MinimumWidthRequest="250" MaximumWidthRequest="250"
+                   x:Name="EnterButton"
+                   Clicked="EnterButton_Clicked"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

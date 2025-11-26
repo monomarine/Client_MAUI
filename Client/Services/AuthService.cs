@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Client.Services
 {
-    internal class AuthService : IAuthService
+    public class AuthService : IAuthService
     {
         private readonly HttpClient _httpClient;
         private readonly string _baseUri = "https://localhost:7212/api/Auth";
@@ -22,9 +22,10 @@ namespace Client.Services
             _httpClient.DefaultRequestHeaders.Add("Accept", "Application/json");
         }
 
-        public Task<bool> IsTokenValidAsync()
+        public async Task<bool> IsTokenValidAsync()
         {
-            throw new NotImplementedException();
+            var token = await SecureStorage.GetAsync("auth_token");
+            return string.IsNullOrEmpty(token);
         }
 
         public async Task<AuthResponse> LoginAsync(LoginRequest loginRequest)
@@ -72,9 +73,33 @@ namespace Client.Services
             }
         }
 
-        public Task<string> RefreshTokenAsync()
+        public async Task<string> RefreshTokenAsync()
         {
-            throw new NotImplementedException();
+            var refresh_token = await SecureStorage.GetAsync("refresh_token");
+            if (string.IsNullOrEmpty(refresh_token))
+                return string.Empty;
+
+            try
+            {
+                var response = await _httpClient.PostAsync($"/Refresh?RefreshToken={refresh_token}", null);
+
+                var reponceContent =  response.Content.ReadAsStringAsync().Result;
+                var authResponse = JsonConvert.DeserializeObject<AuthResponse>(reponceContent);
+                if (response.IsSuccessStatusCode)
+                {
+                    if (authResponse != null && authResponse.Success)
+                    {
+                        await SecureStorage.SetAsync("auth_token", authResponse.Token);
+                        return authResponse.Token;
+                    }
+                    return string.Empty;
+                }
+                return string.Empty;
+            }
+            catch(Exception ex)
+            {
+                return string.Empty;
+            }
         }
 
         public async Task<AuthResponse> RegisterAsync(CreateUserRequest createUser)

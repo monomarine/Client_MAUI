@@ -1,4 +1,6 @@
-﻿namespace Client
+﻿using Client.Services;
+using Client.Views;
+namespace Client
 {
     public partial class App : Application
     {
@@ -6,7 +8,7 @@
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            MainPage = new AuthPage(new AuthService());
         }
     }
 }

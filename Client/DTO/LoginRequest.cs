@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Client.DTO
 {
-    internal class LoginRequest
+    public class LoginRequest
     {
         [Required(ErrorMessage = "необходимо ввести логин или почту")]
         public string LoginOrEmail { get; set; } = null!;

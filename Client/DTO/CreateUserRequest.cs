@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Client.DTO
 {
-    internal class CreateUserRequest
+    public class CreateUserRequest
     {
         [Required]
         [StringLength(50)]

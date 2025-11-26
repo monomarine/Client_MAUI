@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Client.DTO
 {
-    internal class AuthResponse
+    public class AuthResponse
     {
         public bool Success { get; set; }
         public string Token { get; set; } = string.Empty;

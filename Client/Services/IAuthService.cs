@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Client.Services
 {
-    internal interface IAuthService
+    public interface IAuthService
     {
         Task<AuthResponse> LoginAsync(LoginRequest loginRequest);
         Task<AuthResponse> RegisterAsync(CreateUserRequest createUser);
