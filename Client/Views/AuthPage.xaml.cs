@@ -13,15 +13,15 @@ public partial class AuthPage : ContentPage
 		_authService = service;
 	}
 
-    private void EnterButton_Clicked(object sender, EventArgs e)
+    private async void EnterButton_Clicked(object sender, EventArgs e)
     {
 		var loginRequest = new LoginRequest
 		{
 			LoginOrEmail = LoginEntry.Text,
 			Password = PasswordEntry.Text
 		};
-
-		 DisplayAlert("результат авторизации", getToken(loginRequest), "ok");
+		var responce = await _authService.LoginAsync(loginRequest);
+        DisplayAlert("результат авторизации", responce.Token, "ok");
     }
 	private string getToken(LoginRequest req)
 	{
